@@ -5,5 +5,13 @@ export default class Timer {
         this.duration = duartion
         this.endTime =  Date.now() + duration
     }
-    
+
+    get timeRemaining(){
+        return this.endTime - Date.now()
+    }
+
+    get isRunning() {
+        return !!this.endTime
+    }
+
 }
