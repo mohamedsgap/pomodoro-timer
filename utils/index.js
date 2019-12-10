@@ -1,1 +1,2 @@
-export vibrate from './vibrate';
+export Timer from './Timer'
+export vibrate from './vibrate'
