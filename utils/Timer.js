@@ -29,4 +29,17 @@ export default class Timer {
       this.timeout = setTimeout(this.tick, nextTick);
     }
   };
+
+  stop = () => {
+    if (!this.isRunning) return;
+    this.clearTick();
+    this.duration = this.timeRemaining;
+    this.endTime = null;
+  };
+  
+  start = () => {
+    if (this.isRunning) return;
+    this.endTime = Date.now() + this.duration;
+    this.tick();
+  };
 }
