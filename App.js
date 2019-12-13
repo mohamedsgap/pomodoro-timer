@@ -64,7 +64,22 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
+        <Text style={[styles.title, styles.center]}>{this.state.activeTimer.toUpperCase()} TIMER</Text>
+        <Countdown style={style.center} timeRemaining={this.state.timeRemaining} onToggleTimer={this.toggleTimer} />
+        <View style={[styles.buttonGroup, styles.center]} >
+          <TimerToggleButton onToggle={this.toggleTimer} isRunning={this.state.isRunning} />
+          <Button title='Reset' onPress={this.resetTimer}/>
+        </View>
+        <TimeInput
+        title='Work Time:'
+        onChange={this.updateTime('work')}
+        value={this.state.workTime}
+        /> 
+        <TimeInput
+        title='Break Time:'
+        onChange={this.updateTime('break')}
+        value={this.state.breakTime}
+        />
       </View>
     );
   }
@@ -73,8 +88,19 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 150,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'stretch',
+  },
+  center: {
+    alignSelf: 'center',
+  },
+  buttonGroup: {
+    flexDirection: 'row',
+  },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 48,
+    textTransform: 'capitalize',
   },
 });
