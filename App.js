@@ -39,6 +39,11 @@ export default class App extends React.Component {
     }
   }
 
+  resetTimer = shouldStopTimer => {
+    const {activeTimer} = this.state
+    this.updateTime(activeTimer)(this.state[`${activeTimer}Time`], !shouldStopTimer) 
+  }
+
 
   render() {
     return (
