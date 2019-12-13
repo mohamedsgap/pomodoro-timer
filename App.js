@@ -26,7 +26,20 @@ export default class App extends React.Component {
   componentWillUnmount() {
     if(this.timer) this.timer.stop()
   }
-  
+
+  updateTime = target => (time, shouldStartTimer) => {
+    if (this.state.activeTimer === target) {
+      if (this.timer) this.timer.stop()
+      const timeRemaining = +time * 1000
+      this.timer = new Timer(timeRemaining, this.updateTimeRemaining, this.handleTimerEnd)
+      if (!shouldStartTimer) this.timer.stop()
+      this.setState({[`${target}Time`]: time, timeRemaining, isRunning: this.timer.isRunning})
+    } else {
+  this.setState({[`${target}:Time`]: time, isRunning: this.timer.isRunning})
+    }
+  }
+
+
   render() {
     return (
       <View style={styles.container}>
