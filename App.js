@@ -44,6 +44,22 @@ export default class App extends React.Component {
     this.updateTime(activeTimer)(this.state[`${activeTimer}Time`], !shouldStopTimer) 
   }
 
+  updateTimeRemaining = timeRemaining => {
+    this.setState({timeRemaining})
+  }
+
+  toggleTimer = () => {
+    if (!this.timer) return
+    if (this.timer.isRunning) this.timer.stop()
+    else this.timer.start()
+
+    this.setState({isRunning: this.timer.isRunning})
+  }
+
+  handleTimerEnd = () => {
+    vibrate() 
+    this.setState(prevState => ({activeTimer: nextTimer[prevState.activeTimer]}), this.resetTimer)
+  }
 
   render() {
     return (
