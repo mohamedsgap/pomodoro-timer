@@ -10,6 +10,23 @@ const minToSec = mins => mins * 60
 nextTimer = {work: 'break', break: 'work'}
 
 export default class App extends React.Component {
+  state = {
+    workTime = minToSec(DEFAULT_WORK_MINS),
+    breakTime = minToSec(DEFAULT_BREAK_MINS),
+    timeRemaining: minToSec(DEFAULT_WORK_MINS) * 1000,
+    isRunning: false,
+    activeTimer: 'work',
+  }
+
+  componentDidMount() {
+    this.timer = new Timer(this.state.timeRemaining, this.updateTimeRemaining, this.handleTimerEnd)
+    this.setState({isRunning: this.timer.isRunning})
+  }
+
+  componentWillUnmount() {
+    if(this.timer) this.timer.stop()
+  }
+  
   render() {
     return (
       <View style={styles.container}>
